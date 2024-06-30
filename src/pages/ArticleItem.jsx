@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import DOMpurify from 'dompurify';
 import { useParams } from "react-router-dom";
+import config from '../config.js';
 
 const useFetch = (url) => {
 	const [data, setData] = useState(null);
@@ -40,7 +41,7 @@ function ArticleItem() {
 	const { articleName } = useParams();
 	
 	const articleId = articleName.split('-').pop(); //ex: "Manfaat-Mempelajari-Bahasa-Pemrograman-667d0854e58fb977cfaf30bc"
-	const { data: article, loading, error } = useFetch(`http://localhost:3000/articles/${articleId}`);
+	const { data: article, loading, error } = useFetch(`${config.server.url}/articles/${articleId}`);
   
 	if (loading) return <p>Loading...</p>
 	if (error) return <p>{error.message}</p>
