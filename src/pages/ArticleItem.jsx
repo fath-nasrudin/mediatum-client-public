@@ -43,7 +43,7 @@ function ArticleItem() {
 	
 	const articleId = articleName.split('-').pop(); //ex: "Manfaat-Mempelajari-Bahasa-Pemrograman-667d0854e58fb977cfaf30bc"
 	const { data: article, loading: articleLoading, error: articleError } = useFetch(`${config.server.url}/articles/${articleId}`);
-	const { data: comment, loading: commentLoading, error: commentError } = useFetch(`${config.server.url}/articles/${articleId}/comments`);
+	const { data: comment, loading: commentLoading, error: commentError } = useFetch(`${config.server.url}/articles/${articleId}/comments?limit=0`);
   
 	if (articleLoading) return <p>Article Loading...</p>
 	if (articleError) return <p>{articleError.message}</p>
