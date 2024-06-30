@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import DOMpurify from 'dompurify';
 import { useParams } from "react-router-dom";
 import config from '../config.js';
+import CommentSection from "../components/Comment/CommentSection.jsx";
 
 const useFetch = (url) => {
 	const [data, setData] = useState(null);
@@ -53,12 +54,13 @@ function ArticleItem() {
         <h1>{ article.title }</h1>
         <HTMLRenderer htmlString={article.content} />
       </div>
+      <hr />
       <div>
         { commentLoading 
           ? (<p>Comment loading...</p>)
           : commentError 
             ? (<p>{ commentError.message }</p>) 
-            : (JSON.stringify(comment))}
+            : <CommentSection commentData={comment} />}
       </div>
     </div>
   )
