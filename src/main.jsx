@@ -5,6 +5,7 @@ import App from './App.jsx'
 import ArticleItem from './pages/ArticleItem.jsx'
 import Layout from './pages/Layout.jsx'
 import './index.css'
+import Login from './pages/Login.jsx'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: 'login',
+    element: <Login />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
