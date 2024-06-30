@@ -41,15 +41,25 @@ function ArticleItem() {
 	const { articleName } = useParams();
 	
 	const articleId = articleName.split('-').pop(); //ex: "Manfaat-Mempelajari-Bahasa-Pemrograman-667d0854e58fb977cfaf30bc"
-	const { data: article, loading, error } = useFetch(`${config.server.url}/articles/${articleId}`);
+	const { data: article, loading: articleLoading, error: articleError } = useFetch(`${config.server.url}/articles/${articleId}`);
+	const { data: comment, loading: commentLoading, error: commentError } = useFetch(`${config.server.url}/articles/${articleId}/comments`);
   
-	if (loading) return <p>Loading...</p>
-	if (error) return <p>{error.message}</p>
+	if (articleLoading) return <p>Article Loading...</p>
+	if (articleError) return <p>{articleError.message}</p>
 	
   return (
-    <div className="prose lg:prose-lg mx-auto mt-8 px-4">
-      <h1>{ article.title }</h1>
-      <HTMLRenderer htmlString={article.content} />
+    <div className="px-4  mt-8">
+      <div className="prose lg:prose-lg mx-auto">
+        <h1>{ article.title }</h1>
+        <HTMLRenderer htmlString={article.content} />
+      </div>
+      <div>
+        { commentLoading 
+          ? (<p>Comment loading...</p>)
+          : commentError 
+            ? (<p>{ commentError.message }</p>) 
+            : (JSON.stringify(comment))}
+      </div>
     </div>
   )
 }
