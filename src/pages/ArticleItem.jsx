@@ -47,7 +47,7 @@ function ArticleItem() {
 	if (error) return <p>{error.message}</p>
 	
   return (
-    <div className="prose lg:prose-lg mx-auto mt-8">
+    <div className="prose lg:prose-lg mx-auto mt-8 px-4">
       <h1>{ article.title }</h1>
       <HTMLRenderer htmlString={article.content} />
     </div>
