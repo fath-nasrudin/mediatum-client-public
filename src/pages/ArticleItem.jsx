@@ -49,8 +49,8 @@ function ArticleItem() {
 	if (articleError) return <p>{articleError.message}</p>
 	
   return (
-    <div className="px-4  mt-8">
-      <div className="prose lg:prose-lg mx-auto">
+    <div className="max-w-[65ch] px-4 my-8 mx-auto">
+      <div className="prose lg:prose-lg">
         <h1>{ article.title }</h1>
         <HTMLRenderer htmlString={article.content} />
       </div>
