@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import config from './config';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
@@ -39,6 +40,36 @@ const createInitialArticles = () =>  ({
 	]
 });
 
+const useFetch = (url) => {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+    const fetchData = async () => {
+			setLoading(true);
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+				setError(error);
+      } finally {
+				setLoading(false);
+			}
+    };
+
+    fetchData();
+  }, [url]);
+
+	return { data, loading, error };
+}
+
+
 const formatDate = (date) => {
 	return new Date(date).toLocaleDateString('id-ID', {
 		year: 'numeric',
@@ -48,7 +79,10 @@ const formatDate = (date) => {
 }
 
 function App() {
-  const [articles, setArticles] = useState(createInitialArticles);
+	const {data: articles, loading, error} = useFetch(`${config.server.url}/articles`);
+
+	if (loading) return <p>loading...</p>
+	if (error) return <p>{JSON.stringify(error, null, 2)}</p>
 
 	const articleList = articles.items.map(article => (
 		<li 
