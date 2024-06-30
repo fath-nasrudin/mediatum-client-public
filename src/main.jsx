@@ -3,22 +3,28 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
 import ArticleItem from './pages/ArticleItem.jsx'
+import Layout from './pages/Layout.jsx'
 import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <App />,
+      },
+      {
+        path: 'articles', 
+        element: <App />,
+      },
+      {
+        path: 'articles/:articleName',
+        element: <ArticleItem />,
+      },
+    ]
   },
-  {
-    path: 'articles', 
-    element: <App />,
-  },
-  {
-    path: 'articles/:articleName',
-    element: <ArticleItem />,
-  },
-  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
