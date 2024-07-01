@@ -1,19 +1,14 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from 'react-router-dom';
 const Header = () => {
   return (
-    <header
-fix      className="p-4 border-b-2"
-    >
+    <header className="p-4 border-b-2">
       <div className="max-w-screen-xl mx-auto">
         <Link to={'/'}>
-          <div className="text-xl font-bold tracking-wide">
-            Mediatum
-          </div>
+          <div className="text-xl font-bold tracking-wide">Mediatum</div>
         </Link>
       </div>
-
     </header>
-  )
+  );
 };
 
 const Layout = () => {
@@ -22,7 +17,7 @@ const Layout = () => {
       <Header />
       <Outlet />
     </div>
-  )
+  );
 };
 
 export default Layout;
