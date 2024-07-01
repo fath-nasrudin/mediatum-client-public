@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utilites/authentication/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 function InputGroup({ name, value, onChange }) {
   return (
@@ -21,6 +22,11 @@ function InputGroup({ name, value, onChange }) {
 }
 
 function Login() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { loginAction } = useAuth();
