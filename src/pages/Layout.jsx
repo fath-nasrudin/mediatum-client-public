@@ -2,7 +2,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { useAuth } from '../utilites/authentication/AuthProvider';
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, logoutAction } = useAuth();
   return (
     <header className="p-4 border-b-2 ">
       <div className="max-w-screen-xl mx-auto flex justify-between">
@@ -11,7 +11,15 @@ const Header = () => {
         </Link>
 
         {user ? (
-          <div className="text-lg font-semibold">{user.username}</div>
+          <div className="flex gap-2">
+            <div className="text-lg font-semibold">{user.username}</div>
+            <button
+              className="bg-gray-300  px-2 rounded-md flex align-middle"
+              onClick={logoutAction}
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <div className="flex gap-2">
             <Link to={'/login'}>
