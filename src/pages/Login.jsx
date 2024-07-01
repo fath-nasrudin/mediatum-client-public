@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 function InputGroup({ name, value, onChange }) {
   return (
     <div className="flex gap-2 align-middle">
-      <label className="basis-20" htmlFor="username">
+      <label className="basis-20" htmlFor={name}>
         {name}
       </label>
       <input
         className="px-2 ring-1 flex-1"
         type="text"
-        name="username"
-        id="username"
+        name={name}
+        id={name}
         placeholder={name}
         value={value}
         onChange={onChange}
@@ -18,6 +18,31 @@ function InputGroup({ name, value, onChange }) {
     </div>
   );
 }
+
+const loginAction = async (url, data) => {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const resultError = await response.json();
+      console.log({ resultError });
+      throw new Error(`Response Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // set the access token
+    localStorage.setItem('access_token', result.access_token);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -27,7 +52,7 @@ function Login() {
   const onPasswordChange = (e) => setPassword(e.target.value);
   const onLoginClick = (e) => {
     e.preventDefault();
-    console.log({ username, password });
+    loginAction('http://localhost:3000/auth/login', { username, password });
   };
 
   return (
