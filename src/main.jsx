@@ -14,42 +14,46 @@ import Protected from './pages/Protected.jsx';
 import PrivateRoute from './utilites/authentication/PrivateRoute.jsx';
 import AuthProvider from './utilites/authentication/AuthProvider.jsx';
 
-const router = createBrowserRouter([
+const rootChildrenWithLayout = [
   {
-    path: '/',
-    element: (
-      <AuthProvider>
-        <Layout />
-      </AuthProvider>
-    ),
+    index: true,
+    element: <Navigate to={'articles'} />,
+  },
+  {
+    path: 'protected',
+    element: <PrivateRoute />,
     children: [
       {
         index: true,
-        element: <Navigate to={'articles'} />,
-      },
-      {
-        path: 'protected',
-        element: <PrivateRoute />,
-        children: [
-          {
-            index: true,
-            element: <Protected />,
-          },
-        ],
-      },
-      {
-        path: 'articles',
-        element: <App />,
-      },
-      {
-        path: 'articles/:articleName',
-        element: <ArticleItem />,
+        element: <Protected />,
       },
     ],
   },
   {
-    path: 'login',
-    element: <Login />,
+    path: 'articles',
+    element: <App />,
+  },
+  {
+    path: 'articles/:articleName',
+    element: <ArticleItem />,
+  },
+];
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AuthProvider />,
+    children: [
+      {
+        path: '/',
+        element: <Layout />,
+        children: rootChildrenWithLayout,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+    ],
   },
 ]);
 
