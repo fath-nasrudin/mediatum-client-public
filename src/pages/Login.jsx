@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../utilites/authentication/AuthProvider';
 
 function InputGroup({ name, value, onChange }) {
   return (
@@ -19,40 +20,19 @@ function InputGroup({ name, value, onChange }) {
   );
 }
 
-const loginAction = async (url, data) => {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'post',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const resultError = await response.json();
-      console.log({ resultError });
-      throw new Error(`Response Status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    // set the access token
-    localStorage.setItem('access_token', result.access_token);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { loginAction } = useAuth();
 
   const onUsernameChange = (e) => setUsername(e.target.value);
   const onPasswordChange = (e) => setPassword(e.target.value);
   const onLoginClick = (e) => {
     e.preventDefault();
-    loginAction('http://localhost:3000/auth/login', { username, password });
+    loginAction({
+      username,
+      password,
+    });
   };
 
   return (
