@@ -1,12 +1,15 @@
 import { useContext, createContext, useState } from 'react';
 import config from '../../config';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 const AuthContext = createContext();
 
-const initialUser = {
-  username: 'jondoe',
-  first_name: 'Jojon',
-  last_name: 'Doedoeng',
+const initialUser = () => {
+  const accessToken = localStorage.getItem('access_token');
+  if (accessToken) {
+    return jwtDecode(accessToken);
+  }
+  return null;
 };
 
 const AuthProvider = ({ children }) => {
@@ -37,6 +40,8 @@ const AuthProvider = ({ children }) => {
       console.log('success to login');
       const result = await response.json();
 
+      console.log({ decoded: jwtDecode(result.access_token) });
+      setUser(jwtDecode(result.access_token));
       // set the access token
       localStorage.setItem('access_token', result.access_token);
       setToken(result.access_token);
