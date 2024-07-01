@@ -9,9 +9,19 @@ const Header = () => {
         <Link to={'/'}>
           <div className="text-xl font-bold tracking-wide">Mediatum</div>
         </Link>
-        <div className="text-lg font-semibold">
-          {user ? user.username : 'Guest'}
-        </div>
+
+        {user ? (
+          <div className="text-lg font-semibold">{user.username}</div>
+        ) : (
+          <div className="flex gap-2">
+            <Link to={'/login'}>
+              <button className="bg-blue-300 px-2 rounded-md">Login</button>
+            </Link>
+            <Link to="/signup">
+              <button className="bg-gray-300  px-2 rounded-md">Sign Up</button>
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
