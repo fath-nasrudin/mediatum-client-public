@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         method: 'post',
         body: JSON.stringify(data),
       });
