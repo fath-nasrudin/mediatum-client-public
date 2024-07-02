@@ -37,6 +37,16 @@ function Login() {
   const onLoginClick = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+
+    if (!username) {
+      setErrorMessage('username cannot be empty');
+      return;
+    }
+    if (!password) {
+      setErrorMessage('Password cannot be empty');
+      return;
+    }
+
     const { error } = await loginAction({
       username,
       password,
