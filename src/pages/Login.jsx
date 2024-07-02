@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utilites/authentication/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-function InputGroup({ name, value, onChange, type = 'text' }) {
+function InputGroup({ name, value, onChange, type = 'text', required }) {
   return (
     <div className="flex gap-2 align-middle">
       <label className="basis-20" htmlFor={name}>
@@ -16,6 +16,7 @@ function InputGroup({ name, value, onChange, type = 'text' }) {
         placeholder={name}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </div>
   );
@@ -69,12 +70,14 @@ function Login() {
           name="username"
           onChange={onUsernameChange}
           value={username}
+          required={true}
         />
         <InputGroup
           name="password"
           type="password"
           onChange={onPasswordChange}
           value={password}
+          required={true}
         />
         <button className="bg-blue-500 py-1" onClick={onLoginClick}>
           Login
