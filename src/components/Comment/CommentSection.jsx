@@ -32,7 +32,7 @@ function CommentList({ commentList }) {
   );
 }
 
-function CommentForm() {
+function CommentForm({ setCommentValidation }) {
   const { user, token, refreshToken } = useAuth();
   const { articleName } = useParams();
   const articleId = articleName.split('-').pop();
@@ -87,6 +87,10 @@ function CommentForm() {
         const result = await response.json();
         console.log(result);
         setIsSending(false);
+
+        // invalidate comment data
+        console.log('invalidate data');
+        setCommentValidation(false);
       } catch (error) {
         console.log(error);
         setIsSending(false);
@@ -104,7 +108,7 @@ function CommentForm() {
     setIsSending(true);
 
     // reset content
-    // setContent('');
+    setContent('');
 
     // fetch post
     // fetch get all comments
@@ -143,11 +147,11 @@ function CommentForm() {
   );
 }
 
-function CommentSection({ commentData, loadCommentHandler }) {
+function CommentSection({ commentData, setCommentValidation }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="text-xl font-semibold">Comments</div>
-      <CommentForm />
+      <CommentForm setCommentValidation={setCommentValidation} />
       <CommentList commentList={commentData.items} />
     </div>
   );
