@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
         console.log('response no ok');
         const resultError = await response.json();
         console.log({ resultError });
-        throw new Error(`Response Status: ${response.status}`);
+        throw new Error(resultError.message);
       }
 
       console.log('success to login');
@@ -47,8 +47,10 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('access_token', result.access_token);
       setToken(result.access_token);
       navigate('/articles');
+      return { error: null };
     } catch (error) {
       console.error('Error fetching data:', error);
+      return { error };
     }
   };
 

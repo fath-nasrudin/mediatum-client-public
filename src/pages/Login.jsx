@@ -29,22 +29,32 @@ function Login() {
   }, [user]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { loginAction } = useAuth();
 
   const onUsernameChange = (e) => setUsername(e.target.value);
   const onPasswordChange = (e) => setPassword(e.target.value);
-  const onLoginClick = (e) => {
+  const onLoginClick = async (e) => {
     e.preventDefault();
-    loginAction({
+    setErrorMessage('');
+    const { error } = await loginAction({
       username,
       password,
     });
+    if (error) setErrorMessage(error.message);
   };
 
   return (
     <div className="max-w-sm mx-auto mt-8 p-4 ring-1 flex flex-col gap-4">
       <h1 className="text-center text-xl font-semibold">Login</h1>
       <form method="post" className="flex flex-col gap-4">
+        {errorMessage ? (
+          <p className="text-red-600 text-sm text-center mb-[-8px]">
+            {errorMessage}
+          </p>
+        ) : (
+          ''
+        )}
         <InputGroup
           name="username"
           onChange={onUsernameChange}
