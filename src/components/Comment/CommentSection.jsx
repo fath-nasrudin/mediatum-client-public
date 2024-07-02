@@ -91,6 +91,9 @@ function CommentForm({ setCommentValidation }) {
         // invalidate comment data
         console.log('invalidate data');
         setCommentValidation(false);
+
+        // reset content
+        setContent('');
       } catch (error) {
         console.log(error);
         setIsSending(false);
@@ -106,9 +109,6 @@ function CommentForm({ setCommentValidation }) {
     const url = `http://localhost:3000/articles/${articleId}/comments`;
     console.log({ url, articleId, token, content });
     setIsSending(true);
-
-    // reset content
-    setContent('');
 
     // fetch post
     // fetch get all comments
