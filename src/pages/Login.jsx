@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utilites/authentication/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-function InputGroup({ name, value, onChange }) {
+function InputGroup({ name, value, onChange, type = 'text' }) {
   return (
     <div className="flex gap-2 align-middle">
       <label className="basis-20" htmlFor={name}>
@@ -10,7 +10,7 @@ function InputGroup({ name, value, onChange }) {
       </label>
       <input
         className="px-2 ring-1 flex-1"
-        type="text"
+        type={type}
         name={name}
         id={name}
         placeholder={name}
@@ -52,6 +52,7 @@ function Login() {
         />
         <InputGroup
           name="password"
+          type="password"
           onChange={onPasswordChange}
           value={password}
         />
