@@ -19,6 +19,38 @@ const AuthProvider = ({ children }) => {
   );
   const navigate = useNavigate();
 
+  const signupAction = async (data) => {
+    try {
+      console.log('try to signup');
+      const url = `${config.server.url}/auth/signup`;
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        method: 'post',
+        body: JSON.stringify(data),
+      });
+
+      // if signup failed
+      if (!response.ok) {
+        // if the status code is not server error return the error data
+        console.log({ response });
+        const errorData = await response.json();
+        console.log({ errorData });
+        if (response.status < 500) {
+          return { error: errorData };
+        }
+      }
+
+      // if success, redirect to success signup page
+      navigate('/signup/success');
+      return { error: null };
+    } catch (error) {
+      return { error: error };
+    }
+  };
+
   const loginAction = async (data) => {
     try {
       console.log('try to login...');
@@ -96,7 +128,14 @@ const AuthProvider = ({ children }) => {
   };
   return (
     <AuthContext.Provider
-      value={{ user, token, loginAction, logoutAction, refreshToken }}
+      value={{
+        user,
+        token,
+        signupAction,
+        loginAction,
+        logoutAction,
+        refreshToken,
+      }}
     >
       {children}
       <Outlet />

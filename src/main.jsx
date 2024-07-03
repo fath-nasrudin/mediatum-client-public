@@ -13,6 +13,8 @@ import Login from './pages/Login.jsx';
 import Protected from './pages/Protected.jsx';
 import PrivateRoute from './utilites/authentication/PrivateRoute.jsx';
 import AuthProvider from './utilites/authentication/AuthProvider.jsx';
+import SignupPage from './pages/Signup/SignupPage.jsx';
+import SignupSuccessPage from './pages/Signup/SignupSuccessPage.jsx';
 
 const rootChildrenWithLayout = [
   {
@@ -52,6 +54,16 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+      },
+      {
+        path: 'signup',
+        children: [
+          {
+            index: true,
+            element: <SignupPage />,
+          },
+          { path: 'success', element: <SignupSuccessPage />, children: [] },
+        ],
       },
     ],
   },
