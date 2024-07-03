@@ -56,7 +56,7 @@ function App() {
     return (
       <li
         key={article._id}
-        className="ring-1 ring-slate-700 p-2 rounded-sm bg-slate-800 cursor-pointer"
+        className="ring-1 ring-slate-700 p-2 rounded-sm bg-slate-50 cursor-pointer"
       >
         <Link to={fileName}>
           <h2 className="text-lg font-semibold">{article.title}</h2>
@@ -68,7 +68,7 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-200 px-4 py-8">
+    <div className="min-h-screen text-slate-900 bg-slate-50 px-4 py-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl font-semibold">Articles</h1>
         <ul className="flex flex-col gap-4">{articleList}</ul>
