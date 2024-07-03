@@ -15,6 +15,7 @@ import PrivateRoute from './utilites/authentication/PrivateRoute.jsx';
 import AuthProvider from './utilites/authentication/AuthProvider.jsx';
 import SignupPage from './pages/Signup/SignupPage.jsx';
 import SignupSuccessPage from './pages/Signup/SignupSuccessPage.jsx';
+import ArticleListPage from './pages/ArtilceListPage.jsx';
 
 const rootChildrenWithLayout = [
   {
@@ -33,7 +34,7 @@ const rootChildrenWithLayout = [
   },
   {
     path: 'articles',
-    element: <App />,
+    element: <ArticleListPage />,
   },
   {
     path: 'articles/:articleName',
@@ -44,7 +45,7 @@ const rootChildrenWithLayout = [
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AuthProvider />,
+    element: <AuthProvider></AuthProvider>,
     children: [
       {
         path: '/',
